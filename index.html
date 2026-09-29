@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In Cafe & Banquet | Aliganj, Lucknow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brown: #713b20;
+      --ink: #2c221e;
+      --muted: #796a63;
+      --cream: #fdfbf7;
+      --warm: #f4ede4;
+      --line: #e6dfd5;
+      --clay: #c77e50;
+      --green: #25d366;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    
+    .site-shell { overflow-x: hidden; }
+    .announcement {
+      background: var(--brown);
+      color: #f8eadd;
+      padding: 10px 6%;
+      font-size: 11px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+    }
+    .site-header {
+      height: 76px;
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(253,251,247,.95);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+    }
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: var(--brown);
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      line-height: .9;
+    }
+    .brand small {
+      display: block;
+      font: 600 9px 'DM Sans', sans-serif;
+      letter-spacing: .2em;
+      margin-top: 5px;
+      color: var(--muted);
+    }
+    .brand-mark {
+      border: 1.5px solid var(--brown);
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font: 600 13px 'DM Sans', sans-serif;
+    }
+    .nav { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 13px; font-weight: 500; }
+    .nav a:hover { color: var(--brown); }
+    .nav-order { color: var(--clay) !important; font-weight: 700; }
+    .nav-cta, .primary-button {
+      border: 0;
+      background: var(--brown);
+      color: white;
+      padding: 13px 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      transition: all .2s ease;
+    }
+    .nav-cta:hover, .primary-button:hover { background: #50270f; transform: translateY(-2px); }
+    .mobile-menu { display: none; border: 0; background: none; color: var(--brown); font-size: 26px; }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1240px;
+      margin: auto;
+      padding: 70px 6% 85px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+    .eyebrow { font-size: 11px; letter-spacing: .19em; color: var(--clay); font-weight: 700; margin-bottom: 18px; text-transform: uppercase; }
+    .hero h1 { font: 500 clamp(42px, 5vw, 68px)/1.08 'Playfair Display', serif; letter-spacing: -.03em; }
+    .hero h1 em, h2 em, blockquote em { color: var(--clay); font-weight: 500; font-style: italic; }
+    .hero-text { color: var(--muted); font-size: 15px; line-height: 1.8; margin: 24px 0 32px; max-width: 440px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+    .text-link { font-size: 13px; color: var(--brown); font-weight: 700; display: inline-flex; align-items: center; gap: 8px; border-bottom: 1px solid #cbb6a3; padding-bottom: 4px; }
+    .hero-trust { display: flex; gap: 16px; align-items: center; color: var(--muted); font-size: 12px; margin-top: 40px; }
+    .hero-trust span:first-child { color: var(--brown); font-weight: 700; }
+    .hero-trust i { height: 14px; border-left: 1px solid var(--line); }
+    .hero-image { position: relative; aspect-ratio: 1.05; }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    .image-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(253,251,247,.94);
+      padding: 16px 20px;
+      color: var(--brown);
+      font-size: 10px;
+      line-height: 1.5;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+    }
+    .image-caption b { display: block; font: 500 18px/1.2 'Playfair Display', serif; text-transform: none; letter-spacing: 0; margin-top: 5px; }
+
+    /* Intro Strip */
+    .intro-strip { background: var(--warm); padding: 36px 9%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .intro-strip > div { display: grid; grid-template-columns: 38px 1fr; column-gap: 14px; }
+    .strip-number { grid-row: span 2; color: var(--clay); font: italic 22px 'Playfair Display', serif; }
+    .intro-strip b { font: 600 13px 'DM Sans', sans-serif; }
+    .intro-strip p { font-size: 12px; color: var(--muted); margin-top: 5px; line-height: 1.5; }
+
+    /* Story Section */
+    .section { max-width: 1140px; margin: auto; padding: 110px 6%; }
+    .story { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+    .section-image { position: relative; }
+    .section-image img { width: 100%; aspect-ratio: .92; object-fit: cover; }
+    .vertical-note { position: absolute; right: -40px; top: 45%; writing-mode: vertical-rl; font-size: 9px; letter-spacing: .2em; color: var(--clay); }
+    .section-copy h2, .section-heading h2, .visit h2 { font: 500 clamp(36px, 4vw, 56px)/1.08 'Playfair Display', serif; letter-spacing: -.03em; margin-bottom: 24px; }
+    .section-copy p:not(.eyebrow) { font-size: 14px; line-height: 1.85; color: var(--muted); margin-bottom: 16px; }
+
+    /* Menu Section */
+    .menu-section { max-width: 1240px; padding-top: 30px; }
+    .section-heading { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 35px; }
+    .edit-button { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--cream); color: var(--brown); padding: 10px 16px; font-size: 12px; font-weight: 600; }
+    .category-tabs { display: flex; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow-x: auto; }
+    .category-tabs button { white-space: nowrap; background: none; border: 0; padding: 18px 24px 18px 0; margin-right: 20px; color: #9a8b80; font-size: 13px; font-weight: 500; }
+    .category-tabs button.active { color: var(--brown); font-weight: 700; border-bottom: 2px solid var(--brown); }
+    .menu-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 70px; }
+    .menu-item { padding: 26px 0; border-bottom: 1px solid var(--line); }
+    .menu-item-top { display: flex; align-items: baseline; gap: 10px; }
+    .menu-item h3 { font: 500 20px 'Playfair Display', serif; }
+    .menu-item strong { margin-left: auto; color: var(--brown); font: 600 16px 'DM Sans', sans-serif; white-space: nowrap; }
+    .menu-item p { font-size: 13px; color: var(--muted); line-height: 1.6; padding: 8px 0 10px; }
+    .menu-item input { border: 0; border-bottom: 1px solid var(--clay); background: transparent; color: var(--brown); font: inherit; }
+    .veg-dot { width: 10px; height: 10px; border: 1px solid #4b8d5e; display: inline-grid; place-items: center; flex: none; }
+    .veg-dot:after { content: ''; width: 4px; height: 4px; background: #4b8d5e; border-radius: 50%; }
+    .non-veg-dot { width: 10px; height: 10px; border: 1px solid #b91c1c; display: inline-grid; place-items: center; flex: none; }
+    .non-veg-dot:after { content: ''; width: 4px; height: 4px; background: #b91c1c; border-radius: 50%; }
+    .item-wa { font-size: 11px; font-weight: 700; color: #2e6930; display: inline-flex; align-items: center; gap: 4px; text-decoration: underline; }
+
+    /* Quote Band */
+    .quote-band { background: #492817; color: #f8e9db; text-align: center; padding: 90px 20px; }
+    .quote-mark { color: var(--clay); font: 80px/0.6 'Playfair Display', serif; }
+    .quote-band blockquote { font: 500 clamp(32px, 4vw, 50px)/1.15 'Playfair Display', serif; margin: 18px 0 24px; }
+    .quote-band > span { font-size: 11px; letter-spacing: .2em; color: #c8a890; }
+
+    /* Gallery */
+    .gallery { padding-bottom: 70px; }
+    .gallery-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; }
+    .gallery-grid img { width: 100%; height: 350px; object-fit: cover; }
+    .gallery-grid img:first-child { height: 440px; }
+
+    /* Visit Section */
+    .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; padding-top: 40px; padding-bottom: 110px; }
+    .visit-card { background: var(--warm); padding: 56px 9%; }
+    .visit-details { margin: 30px 0; }
+    .visit-details p { display: flex; gap: 14px; color: var(--muted); font-size: 14px; line-height: 1.7; margin: 18px 0; }
+    .visit-details a { color: var(--brown); font-weight: 600; text-decoration: underline; }
+    .alternate-phones { display: block; font-size: 11px; color: #9a8b80; margin-top: 4px; }
+    .visit-actions { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin-top: 28px; }
+    .whatsapp-button { font-size: 12px; font-weight: 700; color: #2e6930; border-bottom: 1px solid #9ab8a0; padding-bottom: 4px; }
+    .map-card { min-height: 380px; background: linear-gradient(135deg, rgba(139,69,19,.15), rgba(212,163,115,.4)), url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1000&q=80') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
+    .map-card:before { content: ''; position: absolute; inset: 18px; border: 1px solid rgba(255,255,255,.6); }
+    .map-pin { color: white; background: var(--brown); width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-size: 18px; position: relative; }
+    .map-card p { color: white; font: 22px 'Playfair Display', serif; margin: 14px 0; position: relative; }
+    .map-card small { font: 11px 'DM Sans', sans-serif; opacity: .9; }
+    .map-card a { color: white; border-bottom: 1px solid white; padding-bottom: 4px; font-size: 12px; position: relative; }
+
+    footer { border-top: 1px solid var(--line); padding: 32px 6%; display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 12px; }
+    
+    /* Modal */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(44,34,30,.7); display: none; place-items: center; padding: 20px; z-index: 100; backdrop-filter: blur(4px); }
+    .modal-backdrop.active { display: grid; }
+    .reservation-modal { background: var(--cream); width: min(520px, 100%); max-height: 90vh; overflow-y: auto; padding: 42px; position: relative; }
+    .modal-close { position: absolute; top: 18px; right: 20px; background: none; border: 0; font-size: 22px; color: var(--muted); }
+    .reservation-modal form { display: grid; gap: 14px; margin-top: 22px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .reservation-modal label { display: grid; gap: 6px; color: var(--brown); font-size: 11px; font-weight: 600; text-transform: uppercase; }
+    .reservation-modal input, .reservation-modal select, .reservation-modal textarea { width: 100%; border: 1px solid var(--line); background: white; padding: 12px; font-size: 13px; color: var(--ink); }
+
+    @media (max-width: 768px) {
+      .announcement span:last-child { display: none; }
+      .site-header { height: 68px; }
+      .mobile-menu { display: block; }
+      .nav { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--cream); padding: 24px 6%; flex-direction: column; align-items: flex-start; gap: 20px; border-bottom: 1px solid var(--line); }
+      .nav.open { display: flex; }
+      .nav-cta { width: 100%; }
+      .hero { padding: 50px 6% 60px; display: block; }
+      .hero-image { margin-top: 45px; }
+      .intro-strip { padding: 28px 7%; display: block; }
+      .intro-strip > div { margin: 18px 0; }
+      .section { padding: 75px 6%; }
+      .story { display: flex; flex-direction: column; gap: 45px; }
+      .vertical-note { display: none; }
+      .menu-grid { display: block; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid img:first-child { grid-column: span 2; height: 260px; }
+      .gallery-grid img { height: 200px; }
+      .visit { display: block; }
+      .map-card { margin-top: 24px; min-height: 300px; }
+      .form-row { grid-template-columns: 1fr; }
+      .reservation-modal { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <div class="announcement">
+      <span>Pure vegetarian dining · Aliganj, Lucknow</span>
+      <span>Open daily 10:00 AM — 11:00 PM</span>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark">SI</span>
+        <span>Sign In<small>CAFE & BANQUET</small></span>
+      </a>
+      <button class="mobile-menu" onclick="toggleNav()">☰</button>
+      <nav class="nav" id="mainNav">
+        <a href="#story" onclick="toggleNav()">Our story</a>
+        <a href="#menu" onclick="toggleNav()">Menu</a>
+        <a href="#gallery" onclick="toggleNav()">Gallery</a>
+        <a href="#visit" onclick="toggleNav()">Visit us</a>
+        <a class="nav-order" href="https://wa.me/918090701654?text=Hello%20Sign%20In%20Cafe%2C%20I%27d%20like%20to%20order" target="_blank">Order on WhatsApp</a>
+        <button class="nav-cta" onclick="openReservation()">Reserve a table ➜</button>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">A TABLE FOR EVERY STORY</p>
+          <h1>Where good food<br><em>& great conversations</em> meet.</h1>
+          <p class="hero-text">A warm, welcoming cafe in the heart of Lucknow. Pure vegetarian flavours crafted fresh daily.</p>
+          <div class="hero-actions">
+            <button class="primary-button" onclick="openReservation()">Reserve your table ➜</button>
+            <a class="text-link" href="#menu">Explore menu ↓</a>
+            <a class="text-link whatsapp-button" href="https://wa.me/918090701654?text=Hello%20Sign%20In%20Cafe%2C%20I%27d%20like%20to%20order" target="_blank">Order on WhatsApp</a>
+          </div>
+          <div class="hero-trust">
+            <span>★ 4.1 on Google</span>
+            <i></i>
+            <span>4,000+ happy diners</span>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1765045038226-43d7cd5cfd29?auto=format&fit=crop&w=1000&q=85" alt="Cafe interior">
+          <div class="image-caption">
+            <span>Est. in Lucknow</span>
+            <b>Pure vegetarian<br>comfort food</b>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-strip">
+        <div><span class="strip-number">01</span><b>Thoughtful food</b><p>Made fresh, served with care.</p></div>
+        <div><span class="strip-number">02</span><b>Easy conversations</b><p>Come as you are, stay awhile.</p></div>
+        <div><span class="strip-number">03</span><b>Memorable moments</b><p>From first dates to big celebrations.</p></div>
+      </section>
+
+      <section class="story section" id="story">
+        <div class="section-image">
+          <img src="https://images.unsplash.com/photo-1638559650606-30bb3ce1cfff?auto=format&fit=crop&w=900&q=85" alt="Food counter">
+          <span class="vertical-note">THE SIGN IN FEELING</span>
+        </div>
+        <div class="section-copy">
+          <p class="eyebrow">A LITTLE ABOUT US</p>
+          <h2>More than a meal,<br><em>it's your place.</em></h2>
+          <p>Sign In Cafe is an Aliganj gathering spot built around honest food, warm hospitality and the little pauses that make a day better.</p>
+          <p>Whether it is a quick coffee, a family dinner or a celebration in our banquet hall, there is always a seat waiting for you.</p>
+          <a class="text-link" href="#visit">Find your way here ➜</a>
+        </div>
+      </section>
+
+      <section class="menu-section section" id="menu">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">FROM OUR KITCHEN</p>
+            <h2>Made to be <em>shared.</em></h2>
+          </div>
+          <button class="edit-button" id="editToggleBtn" onclick="toggleEditMode()">✎ Edit menu</button>
+        </div>
+        <div class="category-tabs" id="tabContainer"></div>
+        <div class="menu-grid" id="menuGrid"></div>
+      </section>
+
+      <section class="quote-band">
+        <div class="quote-mark">“</div>
+        <blockquote>Some places serve food.<br><em>We serve a feeling.</em></blockquote>
+        <span>— THE SIGN IN CAFE PROMISE</span>
+      </section>
+
+      <section class="gallery section" id="gallery">
+        <div class="section-heading">
+          <div><p class="eyebrow">THE SPACE</p><h2>Around <em>here.</em></h2></div>
+          <a class="text-link" href="https://www.instagram.com/signincafe/" target="_blank">Follow Instagram @signincafe ➜</a>
+        </div>
+        <div class="gallery-grid">
+          <img src="https://images.unsplash.com/photo-1638559650606-30bb3ce1cfff?auto=format&fit=crop&w=900&q=85">
+          <img src="https://images.unsplash.com/photo-1769643207188-f9b6b7e1d72c?auto=format&fit=crop&w=900&q=85">
+          <img src="https://images.unsplash.com/photo-1689037676470-b72230d5236e?auto=format&fit=crop&w=900&q=85">
+        </div>
+      </section>
+
+      <section class="visit section" id="visit">
+        <div class="visit-card">
+          <p class="eyebrow">COME SAY HELLO</p>
+          <h2>Your table<br><em>is waiting.</em></h2>
+          <div class="visit-details">
+            <p>📍 B-35, Sector-H, Beli Garad Chauraha,<br>Main Road, Aliganj, Lucknow 226024</p>
+            <p>📞 <span><a href="tel:+918090701654">+91 80907 01654</a><small class="alternate-phones">+91 91408 59653 · +91 75658 38947</small></span></p>
+            <p>🕒 Every day · 10:00 AM — 11:00 PM</p>
+          </div>
+          <div class="visit-actions">
+            <button class="primary-button" onclick="openReservation()">Make a reservation ➜</button>
+            <a class="whatsapp-button" href="https://wa.me/918090701654?text=Hello%20Sign%20In%20Cafe%2C%20I%27d%20like%20to%20order" target="_blank">Order on WhatsApp ➜</a>
+          </div>
+        </div>
+        <div class="map-card">
+          <div class="map-pin">📍</div>
+          <p>Sign In Cafe<br><small>Aliganj, Lucknow</small></p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Sign+In+Cafe+Aliganj+Lucknow" target="_blank">Get directions ➜</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand" href="#top"><span class="brand-mark">SI</span><span>Sign In<small>CAFE & BANQUET</small></span></a>
+      <p>Good food. Great company. Always.</p>
+      <span>© 2026 Sign In Cafe, Lucknow</span>
+    </footer>
+  </div>
+
+  <div class="modal-backdrop" id="resModal">
+    <div class="reservation-modal">
+      <button class="modal-close" onclick="closeReservation()">✕</button>
+      <p class="eyebrow">A GOOD PLAN</p>
+      <h2>Reserve your <em>table.</em></h2>
+      <form onsubmit="submitReservation(event)">
+        <div class="form-row">
+          <label>Your name<input type="text" id="rName" required placeholder="Your name"></label>
+          <label>Phone number<input type="tel" id="rPhone" required placeholder="+91 98765 43210"></label>
+        </div>
+        <div class="form-row">
+          <label>Date<input type="date" id="rDate" required></label>
+          <label>Time
+            <select id="rTime">
+              <option>12:00 PM</option>
+              <option>02:00 PM</option>
+              <option>07:00 PM</option>
+              <option>09:00 PM</option>
+            </select>
+          </label>
+        </div>
+        <label>Number of guests
+          <select id="rGuests">
+            <option>2 guests</option>
+            <option>3 guests</option>
+            <option>4 guests</option>
+            <option>5+ guests (Celebration / Banquet)</option>
+          </select>
+        </label>
+        <button class="primary-button" type="submit" style="width:100%;margin-top:10px">Send Request via WhatsApp ➜</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const MENU = [
+      {
+        id: "beverages",
+        name: "Artisan Beverages & Coffee",
+        items: [
+          { id: "b1", name: "Classic Cappuccino", price: 180, desc: "Rich espresso with steamed milk and creamy foam", veg: true },
+          { id: "b2", name: "Cold Caramel Frappe", price: 240, desc: "Blended coffee with sweet caramel drizzle and whipped cream", veg: true },
+          { id: "b3", name: "Belgian Hot Chocolate", price: 220, desc: "Thick, velvety dark chocolate infused with warm milk", veg: true },
+          { id: "b4", name: "Fresh Mint Lemonade", price: 150, desc: "Zesty lime, fresh mint leaves, and sparkling soda", veg: true }
+        ]
+      },
+      {
+        id: "fast_food",
+        name: "Burgers, Sandwiches & Pizzas",
+        items: [
+          { id: "f1", name: "Signature Veggie Crunch Burger", price: 260, desc: "Crispy potato-corn patty with special Sign In herb mayo", veg: true },
+          { id: "f2", name: "Peri Peri Grilled Chicken Burger", price: 310, desc: "Juicy grilled chicken thigh coated in spicy peri peri glaze", veg: false },
+          { id: "f3", name: "Woodfire Margherita Pizza", price: 350, desc: "Fresh mozzarella, ripe vine tomatoes, and fragrant basil", veg: true },
+          { id: "f4", name: "Smoked Chicken Tikka Pizza", price: 420, desc: "Tandoori chicken tikka chunks with bell peppers and onions", veg: false },
+          { id: "f5", name: "Herb Grilled Sandwich", price: 220, desc: "Exotic veggies and cheese loaded in toasted panini", veg: true }
+        ]
+      },
+      {
+        id: "main_course",
+        name: "Continental & North Indian Delights",
+        items: [
+          { id: "m1", name: "Penne Alfredo Pasta", price: 340, desc: "Creamy parmesan white sauce with mushrooms and garlic bread", veg: true },
+          { id: "m2", name: "Arrabiata Red Sauce Pasta", price: 320, desc: "Tangy spicy tomato herb sauce with olives and bell peppers", veg: true },
+          { id: "m3", name: "Paneer Butter Masala with Naan", price: 380, desc: "Rich tomato butter gravy with soft cottage cheese and butter naan", veg: true },
+          { id: "m4", name: "Butter Chicken & Garlic Naan", price: 450, desc: "Classic tender chicken in buttery makhani sauce with garlic naan", veg: false }
+        ]
+      },
+      {
+        id: "desserts",
+        name: "Sweet Endings",
+        items: [
+          { id: "d1", name: "Sizzling Brownie with Ice Cream", price: 280, desc: "Fudgy walnut brownie with a vanilla scoop", veg: true },
+          { id: "d2", name: "New York Cheesecake", price: 310, desc: "Classic creamy baked cheesecake with berry compote", veg: true }
+        ]
+      }
+    ];
+
+    let activeCat = "beverages";
+    let isEditing = false;
+
+    function renderTabs() {
+      document.getElementById('tabContainer').innerHTML = MENU.map(c => `
+        <button class="${c.id === activeCat ? 'active' : ''}" onclick="selectCategory('${c.id}')">
+          ${c.name.split(' & ')[0]} <span>→</span>
+        </button>
+      `).join('');
+    }
+
+    function selectCategory(id) {
+      activeCat = id;
+      renderTabs();
+      renderItems();
+    }
+
+    function renderItems() {
+      const cat = MENU.find(c => c.id === activeCat);
+      document.getElementById('menuGrid').innerHTML = cat.items.map(item => `
+        <article class="menu-item">
+          <div class="menu-item-top">
+            <span class="${item.veg ? 'veg-dot' : 'non-veg-dot'}"></span>
+            ${isEditing ? `<input value="${item.name}" onchange="updateName('${item.id}', this.value)">` : `<h3>${item.name}</h3>`}
+            <strong>₹${isEditing ? `<input type="number" style="width:60px" value="${item.price}" onchange="updatePrice('${item.id}', this.value)">` : item.price}</strong>
+          </div>
+          <p>${item.desc}</p>
+          <a class="item-wa" href="https://wa.me/918090701654?text=${encodeURIComponent('Hello Sign In Cafe, I would like to order: ' + item.name + ' (₹' + item.price + ')')}" target="_blank">Order on WhatsApp ➜</a>
+        </article>
+      `).join('');
+    }
+
+    function toggleEditMode() {
+      isEditing = !isEditing;
+      document.getElementById('editToggleBtn').innerText = isEditing ? "💾 Save menu" : "✎ Edit menu";
+      renderItems();
+    }
+
+    function updatePrice(id, val) {
+      for (const cat of MENU) {
+        const found = cat.items.find(i => i.id === id);
+        if (found) { found.price = val; break; }
+      }
+    }
+
+    function updateName(id, val) {
+      for (const cat of MENU) {
+        const found = cat.items.find(i => i.id === id);
+        if (found) { found.name = val; break; }
+      }
+    }
+
+    function openReservation() { document.getElementById('resModal').classList.add('active'); }
+    function closeReservation() { document.getElementById('resModal').classList.remove('active'); }
+    function toggleNav() { document.getElementById('mainNav').classList.toggle('open'); }
+
+    function submitReservation(e) {
+      e.preventDefault();
+      const n = document.getElementById('rName').value;
+      const p = document.getElementById('rPhone').value;
+      const d = document.getElementById('rDate').value;
+      const t = document.getElementById('rTime').value;
+      const g = document.getElementById('rGuests').value;
+
+      const msg = `Hello Sign In Cafe, table reservation request:%0A- Name: ${n}%0A- Phone: ${p}%0A- Date: ${d}%0A- Time: ${t}%0A- Guests: ${g}`;
+      window.open(`https://wa.me/918090701654?text=${msg}`, '_blank');
+      closeReservation();
+    }
+
+    renderTabs();
+    renderItems();
+  </script>
+</body>
+</html>
